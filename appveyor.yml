@@ -1,0 +1,35 @@
+version: 1.0.{build}
+branches:
+  only:
+  - master
+skip_tags: true
+image: Visual Studio 2017
+configuration: Release
+platform: Any CPU
+assembly_info:
+  patch: true
+  file: '**\AssemblyInfo.cs'
+  assembly_version: '{version}'
+  assembly_file_version: '{version}'
+  assembly_informational_version: '{version}'
+skip_commits:
+  files:
+    - docs/
+    - '**/*.md'
+    - '*.txt'
+    - appveyor.yml
+    - LICENSE.txt
+    - '.gitignor'
+build:
+  project: NetworkScanner.sln
+  verbosity: minimal
+after_build:
+- cmd: 7z a NetworkScanner.zip %APPVEYOR_BUILD_FOLDER%\NetworkScanner\bin\%CONFIGURATION%\*.exe
+artifacts:
+- path: NetworkScanner.zip
+deploy:
+- provider: GitHub
+  description: "`NetworkScanner.zip` contains the application (Hue2Json.exe). You can start the application ´NetworkScanner.exe´ directly without any args."
+  auth_token:
+    secure: 9pN0zXgw1jNaPCo0m14eC3+IUZPy/y4zL/kdbdzvcMIDcT1zpkPwYF1LijP5EB+J
+prerelease: true

@@ -11,7 +11,7 @@ After start, you must select the interface which you want to use.
 
 
 ## Screenshoot
-![Screenshoot der Anwendung](Docu/NetworkScanner_Screen.png)
+![Screenshoot der Anwendung](docs/NetworkScanner_Screen.png)
 
 ## Credits
 
