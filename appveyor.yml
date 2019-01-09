@@ -29,7 +29,7 @@ artifacts:
 - path: NetworkScanner-%CONFIGURATION%-%APPVEYOR_BUILD_VERSION%.zip
 deploy:
 - provider: GitHub
-  description: "`NetworkScanner-%CONFIGURATION%-%APPVEYOR_BUILD_VERSION%.zip` contains the application (NetworkScanner.exe). You can start the application ´NetworkScanner.exe´ directly without any args.\n\nLast commit message: %APPVEYOR_REPO_COMMIT_MESSAGE%"
+  description: "`NetworkScanner-%CONFIGURATION%-%APPVEYOR_BUILD_VERSION%.zip` contains the application (NetworkScanner.exe). You can start the application `NetworkScanner.exe` directly without any args.\n\n### Last commit message\n%APPVEYOR_REPO_COMMIT_MESSAGE%\n%APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED%"
   auth_token:
     secure: 9pN0zXgw1jNaPCo0m14eC3+IUZPy/y4zL/kdbdzvcMIDcT1zpkPwYF1LijP5EB+J
   prerelease: true
