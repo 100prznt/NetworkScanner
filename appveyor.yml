@@ -24,12 +24,12 @@ build:
   project: NetworkScanner.sln
   verbosity: minimal
 after_build:
-- cmd: 7z a NetworkScanner-%CONFIGURATION%-{build}.zip %APPVEYOR_BUILD_FOLDER%\NetworkScanner\bin\%CONFIGURATION%\*.exe
+- cmd: 7z a NetworkScanner-%CONFIGURATION%-%APPVEYOR_BUILD_NUMBER%.zip %APPVEYOR_BUILD_FOLDER%\NetworkScanner\bin\%CONFIGURATION%\*.exe
 artifacts:
-- path: NetworkScanner-%CONFIGURATION%-{build}.zip
+- path: NetworkScanner-%CONFIGURATION%-%APPVEYOR_BUILD_NUMBER%.zip
 deploy:
 - provider: GitHub
-  description: "`NetworkScanner-%CONFIGURATION%-{build}.zip` contains the application (NetworkScanner.exe). You can start the application ´NetworkScanner.exe´ directly without any args."
+  description: "`NetworkScanner-%CONFIGURATION%-%APPVEYOR_BUILD_NUMBER%.zip` contains the application (NetworkScanner.exe). You can start the application ´NetworkScanner.exe´ directly without any args."
   auth_token:
     secure: 9pN0zXgw1jNaPCo0m14eC3+IUZPy/y4zL/kdbdzvcMIDcT1zpkPwYF1LijP5EB+J
   prerelease: true
