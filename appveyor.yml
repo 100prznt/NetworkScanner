@@ -29,7 +29,7 @@ artifacts:
 - path: NetworkScanner.zip
 deploy:
 - provider: GitHub
-  description: "`NetworkScanner.zip` contains the application (Hue2Json.exe). You can start the application ´NetworkScanner.exe´ directly without any args."
+  description: "`NetworkScanner.zip` contains the application (NetworkScanner.exe). You can start the application ´NetworkScanner.exe´ directly without any args."
   auth_token:
     secure: 9pN0zXgw1jNaPCo0m14eC3+IUZPy/y4zL/kdbdzvcMIDcT1zpkPwYF1LijP5EB+J
   prerelease: true
