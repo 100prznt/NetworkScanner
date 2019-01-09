@@ -25,23 +25,28 @@ namespace NetworkScanner
         public static void Main(string[] args)
         {
             #region Startup
-
             var versionInfo = FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location);
             var attribute = Assembly.GetExecutingAssembly()
                     .GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false)
                     .Cast<AssemblyDescriptionAttribute>().FirstOrDefault();
+            var appName = string.Format("{0} v{1}", typeof(Scanner).Assembly.GetName().Name, versionInfo.ProductVersion);
+
+            Console.Title = appName;
+            Console.WindowWidth = 80;
+            Console.BufferWidth = 80;
+            Console.WindowHeight = 36;
+            
 
             Console.WriteLine();
             Console.BackgroundColor = ConsoleColor.Gray;
             Console.ForegroundColor = ConsoleColor.Black;
-            Console.WriteLine("{0} v{1}", typeof(Scanner).Assembly.GetName().Name, versionInfo.ProductVersion);
+            Console.WriteLine(appName);
             Console.ResetColor();
             if (attribute != null)
                 Console.WriteLine(attribute.Description);
             Console.WriteLine();
             Console.WriteLine(versionInfo.LegalCopyright);
             Console.WriteLine(String.Empty.PadLeft(80, '-'));
-            Console.WriteLine();
 
             #endregion
             string baseIP = null;
@@ -80,7 +85,6 @@ namespace NetworkScanner
 
                 Console.WriteLine();
                 Console.WriteLine(String.Empty.PadLeft(80, '-'));
-                Console.WriteLine();
             }
 
 
@@ -101,11 +105,11 @@ namespace NetworkScanner
             {
                 lock (@lock)
                 {
-                    m_Instances += 1;
+                    m_Instances++;
                 }
 
                 p.SendAsync(string.Concat(baseIP, cnt.ToString()), m_Timeout, data, pingOptions);
-                cnt += 1;
+                cnt++;
             }
 
             while (m_Instances > 0)
@@ -167,18 +171,28 @@ namespace NetworkScanner
             return null;
         }
 
+        public static String GetHostNameByIp(IPAddress address)
+        {
+            try
+            {
+                return Dns.GetHostEntry(address).HostName;
+            }
+            catch (System.Net.Sockets.SocketException ex)
+            {
+                return String.Empty;
+            }
+        }
+
         public static void PingCompleted(object s, PingCompletedEventArgs e)
         {
-            lock (@lock)
-            {
-                m_Instances -= 1;
-            }
-
             if (e.Reply.Status == IPStatus.Success)
             {
-                Console.WriteLine(string.Concat("Active IP: ", e.Reply.Address.ToString()));
+                Console.WriteLine("Active IP: {0,-16} {1}", e.Reply.Address, GetHostNameByIp(e.Reply.Address));
                 m_Result += 1;
             }
+
+            lock (@lock)
+                m_Instances--;
         }
 
 
