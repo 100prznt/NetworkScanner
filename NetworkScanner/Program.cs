@@ -34,7 +34,6 @@ namespace NetworkScanner
             Console.WriteLine();
             Console.BackgroundColor = ConsoleColor.Gray;
             Console.ForegroundColor = ConsoleColor.Black;
-            //Console.WriteLine("{0} v{1}", typeof(Program).Assembly.GetName().Name, typeof(Program).Assembly.GetName().Version);
             Console.WriteLine("{0} v{1}", typeof(Scanner).Assembly.GetName().Name, versionInfo.ProductVersion);
             Console.ResetColor();
             if (attribute != null)
