@@ -4,7 +4,7 @@ Simple network scanner, to show active devices in a local class-d network.
 ## How to use
 
 ### Start the program
-You can start the application ´NetworkScanner.exe´ directly without any args.
+You can start the application `NetworkScanner.exe` directly without any args.
 
 ### Select interface
 After start, you must select the interface which you want to use.
