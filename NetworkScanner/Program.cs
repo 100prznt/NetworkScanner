@@ -32,8 +32,8 @@ namespace NetworkScanner
             var appName = string.Format("{0} v{1}", typeof(Scanner).Assembly.GetName().Name, versionInfo.ProductVersion);
 
             Console.Title = appName;
-            Console.WindowWidth = 80;
-            Console.BufferWidth = 80;
+            Console.WindowWidth = 81;
+            Console.BufferWidth = 81;
             Console.WindowHeight = 36;
             
 
@@ -47,7 +47,7 @@ namespace NetworkScanner
             Console.WriteLine();
             Console.WriteLine(versionInfo.LegalCopyright);
             Console.WriteLine(String.Empty.PadLeft(80, '-'));
-
+            Console.WriteLine();
             #endregion
             string baseIP = null;
 
