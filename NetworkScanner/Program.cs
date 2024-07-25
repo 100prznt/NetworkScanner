@@ -1,4 +1,4 @@
-﻿using System.Net.NetworkInformation;
+using System.Net.NetworkInformation;
 using System.Threading;
 using System.Diagnostics;
 using System.Collections.Generic;
@@ -123,13 +123,13 @@ namespace NetworkScanner
             watch.Stop();
             destroyPingers();
 
+            //Generate csv file
             using (var sw = new StreamWriter("result.csv"))
             {
                 sw.WriteLine("\"IP\";\"Name\";");
                 foreach(var l in m_CsvLine)
                     sw.WriteLine(l);
             }
-
 
             Console.WriteLine();
             Console.WriteLine("Finished in {0}. Found {1} active IP-addresses.", watch.Elapsed.ToString(), m_Result);
