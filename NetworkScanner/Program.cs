@@ -6,6 +6,7 @@ using System;
 using System.Reflection;
 using System.Linq;
 using System.Net;
+using System.IO;
 
 namespace NetworkScanner
 {
@@ -17,6 +18,8 @@ namespace NetworkScanner
         private static int m_Result = 0;
         private static int m_Timeout = 250;
         private static int m_Ttl = 5;
+
+        private static List<string> m_CsvLine;
 
         private static object @lock = new object();
 
@@ -119,6 +122,15 @@ namespace NetworkScanner
 
             watch.Stop();
             destroyPingers();
+
+            using (var sw = new StreamWriter("result.csv"))
+            {
+                sw.WriteLine("\"IP\";\"Name\";");
+                foreach(var l in m_CsvLine)
+                    sw.WriteLine(l);
+            }
+
+
             Console.WriteLine();
             Console.WriteLine("Finished in {0}. Found {1} active IP-addresses.", watch.Elapsed.ToString(), m_Result);
             Console.ReadKey();
@@ -187,7 +199,14 @@ namespace NetworkScanner
         {
             if (e.Reply.Status == IPStatus.Success)
             {
-                Console.WriteLine("Active IP: {0,-16} {1}", e.Reply.Address, GetHostNameByIp(e.Reply.Address));
+                var hostName = GetHostNameByIp(e.Reply.Address);
+                Console.WriteLine("Active IP: {0,-16} {1}", e.Reply.Address, hostName);
+
+                if (m_CsvLine == null)
+                    m_CsvLine = new List<string>();
+
+                m_CsvLine.Add($"\"{e.Reply.Address,-16}\";\"{hostName}\";");
+
                 m_Result += 1;
             }
 
