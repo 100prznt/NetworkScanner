@@ -133,6 +133,9 @@ namespace NetworkScanner
 
             Console.WriteLine();
             Console.WriteLine("Finished in {0}. Found {1} active IP-addresses.", watch.Elapsed.ToString(), m_Result);
+            Console.WriteLine();
+            Console.WriteLine("You found the IP addresses and host names in the file:");
+            Console.WriteLine("{0}\\result.csv", Environment.CurrentDirectory);
             Console.ReadKey();
 
         }
